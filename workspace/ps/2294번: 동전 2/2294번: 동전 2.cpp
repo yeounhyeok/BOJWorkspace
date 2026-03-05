@@ -1,0 +1,2 @@
+#import <bits/stdc++.h>
+using namespace std;int v[101],dp[10001],n,k,i,j;main(){cin>>n>>k;for(i=1;i<=k;i++)dp[i]=1e7;for(i=1;i<=n;i++)cin>>v[i];sort(v+1,v+n+1);for(i=1;i<=k;i++){for(j=1;j<=n;j++){dp[i]=min((i>=v[j]?dp[i-v[j]]+1:(int)1e7),dp[i]);}}cout<<(dp[k]==1e7?-1:dp[k]);}

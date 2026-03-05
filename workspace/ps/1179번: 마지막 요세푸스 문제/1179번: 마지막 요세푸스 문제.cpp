@@ -1,0 +1,2 @@
+#import<bits/stdc++.h>
+using namespace std;typedef long long ll;ll jo(ll n, ll k){if(n==1)return 0;if(1<n&&n<k)return(jo(n-1,k)+k)%n;ll h=jo(n-n/k,k)-n%k;if(h<0)return h+n;else return h+h/(k-1);}main(){ll n,k;cin>>n>>k;if(k==1)cout<<n;else cout<<jo(n,k)+1;}
