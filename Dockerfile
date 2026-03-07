@@ -1,31 +1,21 @@
-# 1. 베이스 이미지 (Node.js 및 경량화된 Debian 기반)
 FROM debian:bookworm-slim
 
-# 2. 패키지 설치 중 상호작용 프롬프트 방지
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 3. 필수 개발 도구 설치 (C++ 빌드 툴 포함)
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake \
-    gdb \
-    git \
-    vim \
-    sudo \
-    bash \
-    git \
-    neofetch && \
-    # 4. 권한 설정: 기본 내장된 'node' 사용자가 비밀번호 없이 sudo를 사용하도록 설정
-    echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    # 5. 캐시 정리 (이미지 용량 최소화)
+# 1. 필수 도구 설치 및 사용자 생성
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential cmake gdb git vim sudo bash neofetch ca-certificates && \
+    # 'node' 대신 운혁님의 아이덴티티를 살린 사용자 생성 (예: dev)
+    useradd -m -s /bin/bash dev && \
+    echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 6. 작업 디렉토리 설정 (맥북의 로컬 폴더가 마운트될 위치)
-WORKDIR /home/node/workspace
+WORKDIR /home/dev/workspace
 
-# 7. 루트 권한을 버리고 안전한 일반 사용자 계정으로 전환 (보안 권장 사항)
-USER node
+# 2. 소유권 변경 (마운트 시 권한 문제 방지)
+RUN chown -R dev:dev /home/dev/workspace
 
-# 8. 컨테이너가 바로 종료되지 않고 유지되도록 설정
-CMD ["sleep", "infinity"]
+USER dev
+
+# neofetch로 기분 좋게 시작
+CMD ["/bin/bash", "-c", "neofetch; sleep infinity"]
