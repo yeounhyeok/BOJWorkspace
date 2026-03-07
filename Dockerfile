@@ -1,5 +1,5 @@
 # 1. 베이스 이미지 (Node.js 및 경량화된 Debian 기반)
-FROM node:20-bookworm-slim
+FROM debian:bookworm-slim
 
 # 2. 패키지 설치 중 상호작용 프롬프트 방지
 ENV DEBIAN_FRONTEND=noninteractive
