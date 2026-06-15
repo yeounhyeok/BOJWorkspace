@@ -9,6 +9,7 @@ services:
     image: c-workspace
     volumes:
       - ./:/home/dev/workspace:delegated
+      - ./vscode-server:/home/dev/.vscode-server
     ports:
       - "5000:5000"
     tty: true

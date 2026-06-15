@@ -1,0 +1,3 @@
+/home/dev/workspace/workspace/build/CMakeFiles/pokemon.dir
+/home/dev/workspace/workspace/build/CMakeFiles/edit_cache.dir
+/home/dev/workspace/workspace/build/CMakeFiles/rebuild_cache.dir

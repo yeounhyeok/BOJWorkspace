@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/pokemon.dir/pokemon.c.o CMakeFiles/pokemon.dir/dogam/dogam.c.o CMakeFiles/pokemon.dir/skill/skill.c.o CMakeFiles/pokemon.dir/battlelogic/battlelogic.c.o CMakeFiles/pokemon.dir/entry/entry.c.o CMakeFiles/pokemon.dir/llm/llm.c.o CMakeFiles/pokemon.dir/score/score.c.o -o pokemon 

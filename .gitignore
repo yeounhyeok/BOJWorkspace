@@ -7,3 +7,8 @@
 
 # Editor folders (VS Code)
 .vscode/
+!workspace/.vscode/
+!workspace/.vscode/tasks.json
+!workspace/.vscode/settings.json
+
+vscode-server/

@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/pokemon.c.o -c /home/dev/workspace/workspace/pokemon/pokemon.c",
+  "file": "/home/dev/workspace/workspace/pokemon/pokemon.c"
+},
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/dogam/dogam.c.o -c /home/dev/workspace/workspace/pokemon/dogam/dogam.c",
+  "file": "/home/dev/workspace/workspace/pokemon/dogam/dogam.c"
+},
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/skill/skill.c.o -c /home/dev/workspace/workspace/pokemon/skill/skill.c",
+  "file": "/home/dev/workspace/workspace/pokemon/skill/skill.c"
+},
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/battlelogic/battlelogic.c.o -c /home/dev/workspace/workspace/pokemon/battlelogic/battlelogic.c",
+  "file": "/home/dev/workspace/workspace/pokemon/battlelogic/battlelogic.c"
+},
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/entry/entry.c.o -c /home/dev/workspace/workspace/pokemon/entry/entry.c",
+  "file": "/home/dev/workspace/workspace/pokemon/entry/entry.c"
+},
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/llm/llm.c.o -c /home/dev/workspace/workspace/pokemon/llm/llm.c",
+  "file": "/home/dev/workspace/workspace/pokemon/llm/llm.c"
+},
+{
+  "directory": "/home/dev/workspace/workspace/build",
+  "command": "/usr/bin/cc  -I/home/dev/workspace/workspace/pokemon -I/home/dev/workspace/workspace/pokemon/llm -I/home/dev/workspace/workspace/pokemon/score -g -Wall -Wextra -std=c99 -o CMakeFiles/pokemon.dir/score/score.c.o -c /home/dev/workspace/workspace/pokemon/score/score.c",
+  "file": "/home/dev/workspace/workspace/pokemon/score/score.c"
+}
+]
