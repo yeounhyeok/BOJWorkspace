@@ -58,6 +58,42 @@ sudo apt-get install -y \
   graphviz
 
 # ------------------------------------------------------------
+# 사용자 전역 tmux 마우스 / UTF-8 (한국어 입출력)
+# C.UTF-8은 Ubuntu/Debian에서 별도 한국어 locale 생성 없이 사용 가능.
+# ------------------------------------------------------------
+
+echo "🖱️ tmux 마우스 및 UTF-8 설정..."
+
+mkdir -p "$HOME/.config/bootstrap"
+cat > "$HOME/.config/bootstrap/locale.sh" <<'LOCALE_CONFIG'
+export LANG=C.UTF-8
+export LC_CTYPE=C.UTF-8
+export LC_ALL=C.UTF-8
+LOCALE_CONFIG
+
+for shell_profile in "$HOME/.profile" "$HOME/.bashrc"; do
+  if ! grep -Fqx '. "$HOME/.config/bootstrap/locale.sh"' "$shell_profile" 2>/dev/null; then
+    printf '\n%s\n' '. "$HOME/.config/bootstrap/locale.sh"' >> "$shell_profile"
+  fi
+done
+. "$HOME/.config/bootstrap/locale.sh"
+
+cat > "$HOME/.config/bootstrap/tmux.conf" <<'TMUX_CONFIG'
+set -g mouse on
+set-environment -g LANG C.UTF-8
+set-environment -g LC_CTYPE C.UTF-8
+set-environment -g LC_ALL C.UTF-8
+TMUX_CONFIG
+
+if ! grep -Fqx 'source-file ~/.config/bootstrap/tmux.conf' "$HOME/.tmux.conf" 2>/dev/null; then
+  printf '\n%s\n' 'source-file ~/.config/bootstrap/tmux.conf' >> "$HOME/.tmux.conf"
+fi
+# 실행 중인 세션은 재시작 없이 적용. 서버가 없으면 다음 시작 시 적용.
+if tmux list-sessions >/dev/null 2>&1; then
+  tmux source-file "$HOME/.config/bootstrap/tmux.conf"
+fi
+
+# ------------------------------------------------------------
 # 2. Git LFS
 # ------------------------------------------------------------
 
@@ -166,6 +202,7 @@ cat > "$HOME/.local/bin/cswap-session" <<'CSWAP_SESSION'
 #!/usr/bin/env bash
 set -uo pipefail
 export PATH="$HOME/.local/bin:$PATH"
+. "$HOME/.config/bootstrap/locale.sh"
 
 while true; do
   cat <<'MENU'
@@ -197,6 +234,8 @@ MENU
     2) cswap list ;;
     3)
       # Ctrl+C는 자동 전환만 중지하고 설정 메뉴로 돌아오게 함.
+      echo '자동 전환 실행 중: 약 60초마다 사용량을 확인합니다. 출력이 잠시 없어도 정상입니다.'
+      echo '이 화면에서는 메뉴 번호 대신 Ctrl+C로 메뉴에 돌아가세요. Ctrl+B → D로 나가도 계속 실행됩니다.'
       trap ':' INT
       cswap auto --threshold 90
       auto_status=$?
@@ -214,7 +253,7 @@ chmod 755 "$HOME/.local/bin/cswap-session"
 if tmux has-session -t '=cswap-auto' 2>/dev/null; then
   echo "🔀 기존 cswap-auto tmux 세션을 유지합니다."
 else
-  tmux new-session -d -s cswap-auto -n setup 'exec bash "$HOME/.local/bin/cswap-session"'
+  tmux -u new-session -d -s cswap-auto -n setup 'exec bash "$HOME/.local/bin/cswap-session"'
   echo "🔀 cswap-auto tmux 세션을 시작했습니다."
 fi
 
@@ -241,7 +280,7 @@ printf "%-14s %s\n" "Claude Swap:" "$(cswap --version)"
 echo
 cat <<'CSWAP_HELP'
 🔀 cswap-auto tmux 세션이 준비되어 있습니다:
-  tmux attach -t cswap-auto
+  tmux -u attach -t cswap-auto
   (이미 tmux 안이라면: tmux switch-client -t cswap-auto)
 
 세션 안에서:
@@ -251,10 +290,11 @@ cat <<'CSWAP_HELP'
   4번 → 셸에서 직접 설정, exit으로 메뉴 복귀
 
 Ctrl+B 를 누른 뒤 D로 나가면 SSH를 끊어도 세션은 유지됩니다.
-자동 전환 중 Ctrl+C를 누르면 설정 메뉴로 돌아옵니다.
+자동 전환은 약 60초마다 확인하며, Ctrl+C를 누르면 설정 메뉴로 돌아옵니다.
+마우스로 스크롤/창 선택이 가능하며, 새 로그인과 tmux에는 UTF-8이 적용됩니다.
 부트스트랩을 다시 실행해도 기존 cswap-auto 세션을 유지합니다.
 재부팅 후에는 다음 명령으로 설정 세션을 다시 시작하세요:
-  tmux new-session -d -s cswap-auto 'exec bash "$HOME/.local/bin/cswap-session"'
+  tmux -u new-session -d -s cswap-auto 'exec bash "$HOME/.local/bin/cswap-session"'
 
 설치와 팀 로그인은 각 컴퓨터/서버의 현재 사용자 기준입니다.
 CSWAP_HELP
