@@ -47,6 +47,7 @@ int main(){
             printf("%d\n", enq(&q, x));
         }
     }
-    // [아직 안 고침] free(q.arr)가 없음 (malloc한 m*sizeof(int) 바이트 누수). 끝나기 전에 해제할 것.
+    //  free(q.arr)가 없음 (malloc한 m*sizeof(int) 바이트 누수). 끝나기 전에 해제할 것.
+    free(q.arr);
     return 0;
 }
